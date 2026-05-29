@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Leonor</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fce1e4;
+            font-family: 'Fredoka', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-container {
+            width: 100%;
+            max-width: 850px;
+            background-color: #ffffff;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(247, 174, 187, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            position: relative;
+            margin: 20px;
+            z-index: 1;
+        }
+
+        .content-left {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .title {
+            font-family: 'Caveat', cursive;
+            font-size: 55px;
+            color: #b55467;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .subtitle {
+            background-color: #f7aebb;
+            color: white;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 80%;
+            margin: 15px auto;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-wish { background-color: #f8bbd0; color: #880e4f; }
+        .btn-surprise { background-color: #e1bee7; color: #4a148c; }
+
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-right {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .photo-frame {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 8px solid #fce1e4;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #e0e0e0;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tag-name {
+            margin-top: 15px;
+            font-size: 20px;
+            color: #b55467;
+            background-color: #fff0f2;
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: 1px dashed #f7aebb;
+        }
+
+        .gif-cat {
+            width: 100px;
+            position: absolute;
+            bottom: -30px;
+            right: 20px;
+        }
+
+        /* --- VENTANAS VENTANAS EMERGENTES (MODALES) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 25px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: popUp 0.4s ease-out;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            background: none;
+            border: none;
+            color: #b55467;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-family: 'Caveat', cursive;
+            font-size: 40px;
+            color: #b55467;
+            margin-bottom: 15px;
+        }
+
+        /* --- INTERACTIVIDAD DEL PASTEL --- */
+        .cake-container {
+            margin: 15px 0;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .cake-img {
+            width: 180px;
+            transition: transform 0.3s;
+        }
+
+        .cake-container:hover .cake-img {
+            transform: scale(1.05);
+        }
+
+        .celebration-text {
+            font-size: 22px;
+            color: #ff4081;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* --- JUEGO RASCA Y GANA (CANVAS) --- */
+        .scratch-container {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Mensaje Secreto Oculto Abajo */
+        .secret-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff0f2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            color: #b55467;
+            border: 2px dashed #f7aebb;
+            border-radius: 15px;
+        }
+
+        .secret-message p {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .secret-message h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        /* Capa Dorada Superior para rascar */
+        #scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+            z-index: 2;
+            touch-action: none; /* Previene scroll en teléfonos al rascar */
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 680px) {
+            .main-container { padding: 20px; }
+            .title { font-size: 45px; }
+            .photo-frame { width: 180px; height: 180px; }
+            .menu-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="content-left">
+            <h1 class="title">Happy Birthday</h1>
+            <span class="subtitle">¡Prepara un deseo! 🎂</span>
+            
+            <button class="menu-btn btn-wish" onclick="openModal('wish-modal')">✨ Pide un deseo aquí</button>
+            <button class="menu-btn btn-surprise" onclick="openModal('surprise-modal')">🎁 Tu Sorpresa (Rasca aquí)</button>
+        </div>
+
+        <div class="content-right">
+            <div class="photo-frame">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500" alt="Leonor">
+            </div>
+            <div class="tag-name">💖 Leonor, My Love 💖</div>
+            <img class="gif-cat" src="https://media.tenor.com/79b_X9m_Yg8AAAAi/milk-and-mocha-bear.gif" alt="Gatito">
+        </div>
+    </div>
+
+    <div id="wish-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('wish-modal')">&times;</button>
+            <h2 class="modal-title">Make a Wish! 🌟</h2>
+            
+            <div class="cake-container" onclick="blowCandle()">
+                <img id="cake-image" class="cake-img" src="https://i.postimg.co/0yXvYg3m/cake-light.gif" alt="Pastel Encendido">
+            </div>
+            
+            <p id="candle-instruction" style="font-style: italic; color: #777;">¡Toca la llama para soplar la vela! 💨</p>
+            <p id="wish-message" class="celebration-text">🎉 ¡Que todos tus deseos se cumplan hoy, mi amor! ✨</p>
+        </div>
+    </div>
+
+    <div id="surprise-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('surprise-modal')">&times;</button>
+            <h2 class="modal-title">Your Surprise 🎁</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">¡Arrastra el dedo o mouse para rascar la tarjeta!</p>
+            
+            <div class="scratch-container">
+                <div class="secret-message">
+                    <h3>Para mi persona favorita 💖</h3>
+                    <p>Felices 18 años, Leonor. Eres una chica increíblemente especial. Gracias al universo por traerte a mi vida. ¡Te amo muchísimo! 🎂✨</p>
+                </div>
+                <canvas id="scratch-canvas" width="320" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            if(modalId === 'surprise-modal') {
+                initScratchCard(); // Inicializa el Canvas cuando abre la ventana
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function blowCandle() {
+            document.getElementById('cake-image').src = "https://i.postimg.co/DZs98NfS/cake-off.gif";
+            document.getElementById('candle-instruction').style.display = 'none';
+            document.getElementById('wish-message').style.display = 'block';
+        }
+
+        // --- SISTEMA INTERACTIVO DE RASCA Y GANA ---
+        let canvasInit = false;
+        function initScratchCard() {
+            if (canvasInit) return; // Evita duplicar capas si abre el modal de nuevo
+            
+            const canvas = document.getElementById('scratch-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Pintar la capa superior de color Rosa Viejo/Dorado elegante
+            ctx.fillStyle = '#e1bee7';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Texto arriba de la capa
+            ctx.fillStyle = '#4a148c';
+            ctx.font = 'bold 18px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ RASCA AQUÍ ✨', canvas.width / 2, canvas.height / 2 + 5);
+
+            let isDrawing = false;
+
+            // Función para borrar los píxeles de la capa superior
+            function scratch(e) {
+                if (!isDrawing) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                // Soporte para Mouse y pantallas Táctiles (Celulares)
+                const x = (e.clientX || e.touches[0].clientX) - rect.left;
+                const y = (e.clientY || e.touches[0].clientY) - rect.top;
+                
+                ctx.globalCompositeOperation = 'destination-out'; // Cambia el pincel a modo "borrador"
+                ctx.beginPath();
+                ctx.arc(x, y, 25, 0, Math.PI * 2); // Tamaño del círculo que borra
+                ctx.fill();
+            }
+
+            // Eventos de Mouse
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('mousemove', scratch);
+
+            // Eventos de Pantalla Táctil (Móvil)
+            canvas.addEventListener('touchstart', () => isDrawing = true);
+            canvas.addEventListener('touchend', () => isDrawing = false);
+            canvas.addEventListener('touchmove', scratch);
+            
+            canvasInit = true;
+        }
+    </script>
+</body>
+</html>
