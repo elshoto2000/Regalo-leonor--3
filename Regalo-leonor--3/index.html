@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Leonor</title>
+    
+    <!-- Fuentes desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Vinculación del CSS externo -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="content-left">
+            <h1 class="title">Happy Birthday</h1>
+            <span class="subtitle">¡Prepara un deseo! 🎂</span>
+            
+            <button class="menu-btn btn-wish" onclick="openModal('wish-modal')">✨ Pide un deseo aquí</button>
+            <button class="menu-btn btn-surprise" onclick="openModal('surprise-modal')">🎁 Tu Sorpresa (Rasca aquí)</button>
+        </div>
+
+        <div class="content-right">
+            <div class="photo-frame">
+                <!-- Foto Real de Leonor cargada localmente -->
+                <img src="img/leonor.jpg" alt="Leonor">
+            </div>
+            <div class="tag-name">💖 Leonor, My Love 💖</div>
+            <img class="gif-cat" src="https://media.tenor.com/79b_X9m_Yg8AAAAi/milk-and-mocha-bear.gif" alt="Gatito">
+        </div>
+    </div>
+
+    <!-- MODAL 1: EL PASTEL -->
+    <div id="wish-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('wish-modal')">&times;</button>
+            <h2 class="modal-title">Make a Wish! 🌟</h2>
+            
+            <div class="cake-container" onclick="blowCandle()">
+                <img id="cake-image" class="cake-img" src="https://i.postimg.co/0yXvYg3m/cake-light.gif" alt="Pastel Encendido">
+            </div>
+            
+            <p id="candle-instruction" style="font-style: italic; color: #777;">¡Toca la llama para soplar la vela! 💨</p>
+            <p id="wish-message" class="celebration-text">🎉 ¡Que todos tus deseos se cumplan hoy, mi amor! ✨</p>
+        </div>
+    </div>
+
+    <!-- MODAL 2: EL RASCA Y GANA -->
+    <div id="surprise-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('surprise-modal')">&times;</button>
+            <h2 class="modal-title">Your Surprise 🎁</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">¡Arrastra el dedo o mouse para rascar la tarjeta!</p>
+            
+            <div class="scratch-container">
+                <div class="secret-message">
+                    <h3>Para mi persona favorita 💖</h3>
+                    <p>Felices 18 años, Leonor. Eres una chica increíblemente especial. Gracias al universo por traerte a mi vida. ¡Te amo muchísimo! 🎂✨</p>
+                </div>
+                <canvas id="scratch-canvas" width="320" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vinculación del JavaScript externo -->
+    <script src="js/script.js"></script>
+</body>
+</html>
