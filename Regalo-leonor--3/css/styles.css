@@ -1,0 +1,266 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fce1e4;
+    font-family: 'Fredoka', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.main-container {
+    width: 100%;
+    max-width: 850px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(247, 174, 187, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    margin: 20px;
+    z-index: 1;
+}
+
+.content-left {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    padding: 20px;
+}
+
+.title {
+    font-family: 'Caveat', cursive;
+    font-size: 55px;
+    color: #b55467;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.subtitle {
+    background-color: #f7aebb;
+    color: white;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.menu-btn {
+    display: block;
+    width: 80%;
+    margin: 15px auto;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+
+.btn-wish { background-color: #f8bbd0; color: #880e4f; }
+.btn-surprise { background-color: #e1bee7; color: #4a148c; }
+
+.menu-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.content-right {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+.photo-frame {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 8px solid #fce1e4;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tag-name {
+    margin-top: 15px;
+    font-size: 20px;
+    color: #b55467;
+    background-color: #fff0f2;
+    padding: 5px 15px;
+    border-radius: 15px;
+    border: 1px dashed #f7aebb;
+}
+
+.gif-cat {
+    width: 100px;
+    position: absolute;
+    bottom: -30px;
+    right: 20px;
+}
+
+/* --- VENTANAS EMERGENTES (MODALES) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 25px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: popUp 0.4s ease-out;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #b55467;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-family: 'Caveat', cursive;
+    font-size: 40px;
+    color: #b55467;
+    margin-bottom: 15px;
+}
+
+/* --- INTERACTIVIDAD DEL PASTEL --- */
+.cake-container {
+    margin: 15px 0;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.cake-img {
+    width: 180px;
+    transition: transform 0.3s;
+}
+
+.cake-container:hover .cake-img {
+    transform: scale(1.05);
+}
+
+.celebration-text {
+    font-size: 22px;
+    color: #ff4081;
+    font-weight: bold;
+    margin-top: 15px;
+    display: none;
+    animation: pulse 1.5s infinite;
+}
+
+/* --- JUEGO RASCA Y GANA (CANVAS) --- */
+.scratch-container {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.secret-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff0f2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    color: #b55467;
+    border: 2px dashed #f7aebb;
+    border-radius: 15px;
+}
+
+.secret-message p {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.secret-message h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+#scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+    z-index: 2;
+    touch-action: none;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes popUp {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@media (max-width: 680px) {
+    .main-container { padding: 20px; }
+    .title { font-size: 45px; }
+    .photo-frame { width: 200px; height: 200px; }
+    .menu-btn { width: 100%; }
+}
